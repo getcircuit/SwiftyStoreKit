@@ -59,6 +59,11 @@ extension ReceiptItem {
         self.webOrderLineItemId = receiptInfo["web_order_line_item_id"] as? String
         self.subscriptionExpirationDate = ReceiptItem.parseDate(from: receiptInfo, key: "expires_date_ms")
         self.cancellationDate = ReceiptItem.parseDate(from: receiptInfo, key: "cancellation_date_ms")
+        
+        if let promotionalOfferId = receiptInfo["promotional_offer_id"] as? String {
+            self.offerIdentifier = promotionalOfferId
+        }
+        
         if let isTrialPeriod = receiptInfo["is_trial_period"] as? String {
             self.isTrialPeriod = Bool(isTrialPeriod) ?? false
         } else {

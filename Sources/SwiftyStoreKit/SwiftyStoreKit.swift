@@ -99,8 +99,6 @@ public class SwiftyStoreKit {
         switch result {
         case .purchased(let purchase):
             return .success(purchase: purchase)
-        case .deferred(let purchase):
-            return .deferred(purchase: purchase)
         case .failed(let error):
             return .error(error: error)
         case .restored(let purchase):
@@ -114,9 +112,6 @@ public class SwiftyStoreKit {
         for result in results {
             switch result {
             case .purchased(let purchase):
-                let error = storeInternalError(description: "Cannot purchase product \(purchase.productId) from restore purchases path")
-                restoreFailedPurchases.append((error, purchase.productId))
-            case .deferred(let purchase):
                 let error = storeInternalError(description: "Cannot purchase product \(purchase.productId) from restore purchases path")
                 restoreFailedPurchases.append((error, purchase.productId))
             case .failed(let error):
